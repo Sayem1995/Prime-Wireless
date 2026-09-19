@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      The `__BRAND_*__` tokens are replaced at build time by the `brand()` plugin
+      in vite.config.ts, which reads them from the environment (BRAND_* /
+      VITE_BRAND_*) with Philly Phone Repair as the default. Nothing here needs
+      editing to stand up a second store.
+    -->
+    <title>__BRAND_NAME__ — Same-Day Phone, Tablet & Laptop Repair in Philadelphia</title>
+    <meta name="description" content="__BRAND_NAME__: same-day iPhone, Samsung, Pixel, iPad, MacBook & game console repair at __BRAND_STREET__, __BRAND_CITY__. Lifetime warranty on screen repairs. Walk-ins welcome." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="__BRAND_SITE_URL__/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="__BRAND_NAME__ — Same-Day Repair in Philadelphia" />
+    <meta property="og:description" content="Same-day phone, tablet, laptop & console repair. __BRAND_STREET__, __BRAND_CITY__. Lifetime warranty." />
+    <link rel="icon" type="image/png" href="__BRAND_ICON__" />
+    <link rel="apple-touch-icon" href="__BRAND_ICON__" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+__BRAND_JSONLD__
+    </script>
+    <!-- Google Analytics: replace G-XXXXXXXXXX with your measurement ID
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+    -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

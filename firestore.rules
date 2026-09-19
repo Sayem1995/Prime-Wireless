@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public catalog data — read-only for everyone
+    match /repairPrices/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /products/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /blogPosts/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Customer-facing submissions. The browser never writes these directly —
+    // bookings, contact messages and newsletter signups all go through
+    // /api/trpc, which validates input server-side and writes with the Admin
+    // SDK (which bypasses these rules). Allowing public create here would let
+    // anyone with the public web config write unvalidated documents straight
+    // into the CRM — including bookings that fill every slot to block real
+    // customers — so it is denied.
+    match /bookings/{id} {
+      allow read, write: if false;
+    }
+    match /messages/{id} {
+      allow read, write: if false;
+    }
+    match /subscribers/{id} {
+      allow read, write: if false;
+    }
+
+    // Admin/CRM data — backend (Firebase Functions with admin SDK) only.
+    // Client SDK never reads these collections directly; all access is
+    // through /api/trpc which validates the Firebase ID token server-side.
+    match /users/{id} {
+      allow read, write: if false;
+    }
+    match /customers/{id} {
+      allow read, write: if false;
+    }
+    match /customerNotes/{id} {
+      allow read, write: if false;
+    }
+    match /notifications/{id} {
+      allow read, write: if false;
+    }
+    match /parts/{id} {
+      allow read, write: if false;
+    }
+    match /__counters/{id} {
+      allow read, write: if false;
+    }
+  }
+}
