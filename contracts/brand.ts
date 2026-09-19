@@ -478,10 +478,7 @@ export function readBrand(): Brand {
     readString(["BRAND_WORDMARK_ACCENT", "VITE_BRAND_WORDMARK_ACCENT"], ""),
   );
 
-  // PLACEHOLDER: the real store number was not available when this repo was
-  // set up. Replace it here and in `.env` — `npm run build` refuses to build
-  // while a 555-01xx number is still in place.
-  const phone = readString(["BRAND_PHONE", "VITE_BRAND_PHONE"], "(215) 555-0100");
+  const phone = readString(["BRAND_PHONE", "VITE_BRAND_PHONE"], "(814) 384-1507");
   const siteUrl = readString(
     ["BRAND_SITE_URL", "VITE_BRAND_SITE_URL"],
     readString(["PUBLIC_SITE_URL"], "https://prime-wireless.vercel.app"),
@@ -525,10 +522,8 @@ export function readBrand(): Brand {
     },
     phone,
     phoneHref: toTelHref(phone),
-    // PLACEHOLDER: replace with the real inbox. Used as the "from"/reply-to
-    // address for customer email and as the fallback recipient for staff
-    // alerts. `npm run build` refuses to build while this ends in `.example`.
-    email: readString(["BRAND_EMAIL", "VITE_BRAND_EMAIL"], "hello@primewireless.example"),
+    // Public contact inbox, and the fallback "from"/reply-to for customer email.
+    email: readString(["BRAND_EMAIL", "VITE_BRAND_EMAIL"], "mr.sayemulhaque@gmail.com"),
     whatsapp: readString(["BRAND_WHATSAPP", "VITE_BRAND_WHATSAPP"], toWhatsAppNumber(phone)),
     hours: parseHours(readString(["BRAND_HOURS", "VITE_BRAND_HOURS"], "")),
     siteUrl,
