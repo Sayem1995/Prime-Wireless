@@ -22,7 +22,33 @@ function loadCloudFirestore(): Promise<typeof import("@google-cloud/firestore").
   return cloudFirestoreCtor;
 }
 
+/**
+ * Read the service-account private key.
+ *
+ * The PEM key is multi-line, which makes it fragile to paste into a hosting
+ * dashboard — values commonly arrive with a trailing newline, wrapping quotes,
+ * literal `\n` instead of real line breaks, or wrapped by the textarea itself.
+ * All of those produce a key `firebase-admin` rejects, usually with an opaque
+ * error, so every form is normalised here.
+ *
+ * `FIREBASE_PRIVATE_KEY_BASE64` takes precedence and avoids the problem
+ * entirely: base64 is a single line with no characters an HTML form will
+ * mangle. Recommended when setting the value through a web dashboard.
+ */
 function getPrivateKey(): string {
+  // Preferred: base64-encoded PEM — immune to whitespace/quote mangling.
+  const encoded = env.firebasePrivateKeyBase64;
+  if (encoded) {
+    const decoded = Buffer.from(encoded.trim(), "base64").toString("utf8");
+    // Guard against a value that was not actually base64 (e.g. the raw PEM was
+    // pasted into the wrong variable) — fall back to the plain variable below.
+    if (decoded.includes("BEGIN")) return decoded.trim();
+    console.warn(
+      "[firestore] FIREBASE_PRIVATE_KEY_BASE64 did not decode to a PEM key; " +
+        "falling back to FIREBASE_PRIVATE_KEY.",
+    );
+  }
+
   if (env.firebasePrivateKey) {
     const cleaned = env.firebasePrivateKey.trim();
     // When set via env var (not .env), \n is usually already real newlines.

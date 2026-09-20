@@ -30,6 +30,9 @@ export const env = {
     "",
   firebaseClientEmail: optional("FIREBASE_CLIENT_EMAIL"),
   firebasePrivateKey: optional("FIREBASE_PRIVATE_KEY"),
+  // Base64-encoded PEM. Single-line, so it survives being pasted into a hosting
+  // dashboard without the whitespace/quote mangling that breaks the raw key.
+  firebasePrivateKeyBase64: optional("FIREBASE_PRIVATE_KEY_BASE64"),
   firebaseAdminUid: optional("FIREBASE_ADMIN_UID"),
 
   // ── Keyless Google Cloud auth (Vercel OIDC → Workload Identity) ──
